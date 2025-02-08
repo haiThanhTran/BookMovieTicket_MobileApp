@@ -1,6 +1,6 @@
 {
+  "name": "MovieCinema",
   "expo": {
-    "name": "MyNewApp",
     "slug": "MyNewApp",
     "version": "1.0.0",
     "orientation": "portrait",
