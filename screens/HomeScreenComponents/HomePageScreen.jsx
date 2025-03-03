@@ -11,10 +11,10 @@ import {
 import { Text, Card, Title } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import Carousel, { Pagination } from "react-native-reanimated-carousel";
-import axios from "axios";
+import axios from 'axios';
 import { useSharedValue } from "react-native-reanimated";
-
-const BASE_URL = "http://10.33.53.160:5000/movie";
+import {env} from "../../config/enviroment";
+const BASE_URL = env.API_URL;
 const width = Dimensions.get("window").width;
 const CARD_WIDTH = (width - 48) / 2; // 2 columns with padding
 
@@ -44,10 +44,10 @@ const HomePageScreen = () => {
       setLoading(true);
       try {
         const currentMoviesResponse = await axios.get(
-          `${BASE_URL}/movie/current`
+          `${BASE_URL}/movie/movie/current`
         );
         const upcomingMoviesResponse = await axios.get(
-          `${BASE_URL}/movie/upcomingmovies`
+          `${BASE_URL}/movie/movie/upcomingmovies`
         );
 
         setNowShowingMovies(currentMoviesResponse.data);

@@ -3,7 +3,8 @@ import { View, StyleSheet, Vibration, Image, TouchableOpacity } from "react-nati
 import { TextInput, Button, Text } from "react-native-paper";
 import { Formik } from "formik";
 import { loginValidationSchema } from "../../config/ValidationSchema";
-import axios from "axios";
+import axios from 'react-native-axios';
+
 const API_SERVER = "http://192.162.13.101:5000/mobile";
 import { storeData } from "../../config/AsyncStorageConfig";
 import { ScrollView } from "react-native-gesture-handler";
@@ -227,7 +228,6 @@ const styles = StyleSheet.create({
   loginButton: {
     borderWidth: 1,
     borderColor: "#FF6B00",
-    marginTop: 158,
     borderRadius: 4,
   },
   registerContainer: {

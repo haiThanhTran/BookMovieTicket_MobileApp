@@ -4,7 +4,7 @@ import { View, StyleSheet } from "react-native";
 import { TextInput, Button, Text } from "react-native-paper";
 import { Formik } from "formik";
 import { registrationValidationSchema } from "../../config/ValidationSchema";
-import axios from "axios";
+import axios from "react-native-axios";
 
 const API_SERVER = "http://192.162.13.101:5000/user";
 

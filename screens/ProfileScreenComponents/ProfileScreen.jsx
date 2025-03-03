@@ -12,7 +12,7 @@ const ProfileScreen = ({ navigation }) => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       const storedUserInfo = await getData("userInfo");
-      if(storedUserInfo){
+      if (storedUserInfo) {
         console.log("User info", storedUserInfo);
         setUserInfo(storedUserInfo);
       }
@@ -58,7 +58,6 @@ const ProfileScreen = ({ navigation }) => {
       <ScrollView
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}
-
       >
         <View style={styles.content}>
           <Image
@@ -66,14 +65,16 @@ const ProfileScreen = ({ navigation }) => {
             style={styles.mascotImage}
             resizeMode="contain"
           />
-          
+
           <Text style={styles.promotionTitle}>Đăng Ký Thành Viên Ngay</Text>
           <Text style={styles.promotionSubtitle}>Nhận Quà Liền Tay</Text>
         </View>
         {userInfo ? (
           // Hiển thị thông tin người dùng nếu đã đăng nhập
           <View style={styles.buttonContainer}>
-            <Text style={styles.welcomeText}>Xin chào, {userInfo.username}!</Text>
+            <Text style={styles.welcomeText}>
+              Xin chào, {userInfo.username}!
+            </Text>
           </View>
         ) : (
           <View style={styles.buttonContainer}>
@@ -107,7 +108,6 @@ const ProfileScreen = ({ navigation }) => {
               style={styles.infoArrow}
             />
           </Pressable>
-
           <Pressable onPress={handleEmailPress} style={styles.infoItem}>
             <Text style={styles.infoLabel}>Email: </Text>
             <Text style={styles.infoValueBlue}>hotro@galaxystudio.vn</Text>
@@ -117,7 +117,6 @@ const ProfileScreen = ({ navigation }) => {
               style={styles.infoArrow}
             />
           </Pressable>
-
           <Pressable onPress={handleCompanyInfoPress} style={styles.infoItem}>
             <Text style={styles.infoValue}>Thông Tin Công Ty</Text>
             <IconButton
@@ -126,7 +125,6 @@ const ProfileScreen = ({ navigation }) => {
               style={styles.infoArrow}
             />
           </Pressable>
-
           <Pressable onPress={handleTermsPress} style={styles.infoItem}>
             <Text style={styles.infoValue}>Điều Khoản Sử Dụng</Text>
             <IconButton
@@ -135,14 +133,17 @@ const ProfileScreen = ({ navigation }) => {
               style={styles.infoArrow}
             />
           </Pressable>
-          <Pressable onPress={handleLogout} style={styles.logout}>
-            <Text style={styles.infoValue}>Đăng xuất</Text>
-            <IconButton
-              icon="chevron-right"
-              size={24}
-              style={styles.logout}
-            />
-          </Pressable>
+
+          {userInfo ? (
+            <Pressable onPress={handleLogout} style={styles.infoItem}>
+              <Text style={styles.infoValue}>Đăng xuất</Text>
+              <IconButton
+                icon="chevron-right"
+                size={24}
+                style={styles.infoArrow}
+              />
+            </Pressable>
+          ) : null}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -267,6 +268,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderBottomWidth: 2,
     borderBottomColor: "#EEEEEE",
+    fontWeight: "700",
   },
   infoLabel: {
     fontWeight: "bold",
@@ -278,6 +280,7 @@ const styles = StyleSheet.create({
     color: "#333333",
     flex: 1,
   },
+
   infoValueBlue: {
     fontSize: 14,
     color: "#0066CC",

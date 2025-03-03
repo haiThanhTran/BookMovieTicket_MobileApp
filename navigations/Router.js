@@ -1,6 +1,7 @@
 import React from "react";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import HomeStackNavigation from "../screens/HomeScreenComponents/HomeStackNavigation";
+import CinemaListScreen from "../screens/CinemaScreenComponents/CinemaListScreen";
 import ProfileStackNavigation from "../screens/ProfileStackNavigation";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 const Tab = createMaterialBottomTabNavigator();
@@ -32,19 +33,19 @@ const AppRouter = () => {
         name="HomeStackNavigation"
         component={HomeStackNavigation}
         options={{
-          tabBarLabel: "Trang chủ",
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="home-minus-outline"
-              color={color}
-              size={21}
-            />
-          ),
+            tabBarLabel: "Trang chủ",
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons
+                name="home-minus-outline"
+                color={color}
+                size={21}
+              />
+            ),
         }}
       />
       <Tab.Screen
         name="CinemaStackNavigation"
-        component={HomeStackNavigation}
+        component={CinemaListScreen}
         options={{
           tabBarLabel: "Rạp phim",
           tabBarIcon: ({ color }) => (
@@ -56,16 +57,7 @@ const AppRouter = () => {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="HomeStackNavigation"
-        component={HomeStackNavigation}
-        options={{
-          tabBarLabel: "Trang chủ",
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={21} />
-          ),
-        }}
-      /> */}
+     
       <Tab.Screen
         name="ProfileStackNavigation"
         component={ProfileStackNavigation}
