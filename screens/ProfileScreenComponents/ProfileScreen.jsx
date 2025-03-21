@@ -1,12 +1,22 @@
 import { getData } from "@/config/AsyncStorageConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Image, Pressable } from "react-native";
+import React, { useEffect, useState, useContext } from "react";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  Pressable,
+  Linking,
+} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { IconButton, Button } from "react-native-paper";
+import { IconButton, Button, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const ProfileScreen = ({ navigation }) => {
+  const { isDarkMode, toggleTheme } = useContext(ThemeContext);
+  const theme = useTheme();
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
@@ -19,24 +29,44 @@ const ProfileScreen = ({ navigation }) => {
     };
     fetchUserInfo();
   }, []);
+
   const handleHotlinePress = () => {
-    alert("HotlinePress 113");
+    Linking.openURL("tel:19002224");
   };
 
   const handleEmailPress = () => {
-    alert("Bấm vào email");
+    Linking.openURL("mailto:hotro@galaxystudio.vn");
   };
 
   const handleCompanyInfoPress = () => {
-    alert("Bấm vào công ty");
+    alert(
+      "Galaxy Studio\n\n" +
+        "Địa chỉ: 123 Nguyễn Du, Q.1, TP.HCM\n" +
+        "Mã số thuế: 0123456789\n" +
+        "Giấy phép kinh doanh: 123456789\n" +
+        "Ngày cấp: 01/01/2024"
+    );
   };
 
   const handleTermsPress = () => {
-    alert("Bấm vào chính sách");
+    alert(
+      "Điều khoản sử dụng\n\n" +
+        "1. Quy định chung\n" +
+        "- Người dùng phải trên 13 tuổi\n" +
+        "- Thông tin cung cấp phải chính xác\n\n" +
+        "2. Quy định đặt vé\n" +
+        "- Vé đã đặt không được hoàn/hủy\n" +
+        "- Vui lòng kiểm tra kỹ thông tin trước khi đặt\n\n" +
+        "3. Bảo mật thông tin\n" +
+        "- Chúng tôi cam kết bảo vệ thông tin của bạn\n" +
+        "- Không chia sẻ thông tin cho bên thứ ba"
+    );
   };
+
   const handleLogoutPress = () => {
     alert("Bấm vào chính sách");
   };
+
   const handleLogout = async () => {
     await AsyncStorage.removeItem("userInfo");
     await AsyncStorage.removeItem("accessToken");
@@ -44,15 +74,20 @@ const ProfileScreen = ({ navigation }) => {
     setUserInfo(null);
     alert("User info removed");
   };
+
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Tài khoản</Text>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
+      <View style={[styles.header, { backgroundColor: theme.colors.surface }]}>
+        <Text style={[styles.headerTitle, { color: theme.colors.text }]}>
+          Tài khoản
+        </Text>
         <IconButton
-          icon="cog"
+          icon={isDarkMode ? "white-balance-sunny" : "moon-waning-crescent"}
           size={24}
-          style={styles.settingsIcon}
-          onPress={() => navigation.navigate("Cài đặt")}
+          onPress={toggleTheme}
+          color={theme.colors.primary}
         />
       </View>
       <ScrollView
@@ -66,13 +101,19 @@ const ProfileScreen = ({ navigation }) => {
             resizeMode="contain"
           />
 
-          <Text style={styles.promotionTitle}>Đăng Ký Thành Viên Ngay</Text>
-          <Text style={styles.promotionSubtitle}>Nhận Quà Liền Tay</Text>
+          <Text style={[styles.promotionTitle, { color: theme.colors.text }]}>
+            Đăng Ký Thành Viên Ngay
+          </Text>
+          <Text
+            style={[styles.promotionSubtitle, { color: theme.colors.text }]}
+          >
+            Nhận Quà Liền Tay
+          </Text>
         </View>
         {userInfo ? (
           // Hiển thị thông tin người dùng nếu đã đăng nhập
           <View style={styles.buttonContainer}>
-            <Text style={styles.welcomeText}>
+            <Text style={[styles.welcomeText, { color: theme.colors.text }]}>
               Xin chào, {userInfo.username}!
             </Text>
           </View>
@@ -99,48 +140,88 @@ const ProfileScreen = ({ navigation }) => {
           </View>
         )}
         <View style={styles.infoSection}>
-          <Pressable onPress={handleHotlinePress} style={styles.infoItem}>
-            <Text style={styles.infoLabel}>Gọi ĐƯỜNG DÂY NÓNG: </Text>
+          <Pressable
+            onPress={handleHotlinePress}
+            style={[
+              styles.infoItem,
+              { borderBottomColor: theme.colors.border },
+            ]}
+          >
+            <Text style={[styles.infoLabel, { color: theme.colors.text }]}>
+              Gọi ĐƯỜNG DÂY NÓNG:
+            </Text>
             <Text style={styles.infoValueBlue}>19002224</Text>
             <IconButton
               icon="chevron-right"
               size={24}
-              style={styles.infoArrow}
+              color={theme.colors.primary}
             />
           </Pressable>
-          <Pressable onPress={handleEmailPress} style={styles.infoItem}>
-            <Text style={styles.infoLabel}>Email: </Text>
+          <Pressable
+            onPress={handleEmailPress}
+            style={[
+              styles.infoItem,
+              { borderBottomColor: theme.colors.border },
+            ]}
+          >
+            <Text style={[styles.infoLabel, { color: theme.colors.text }]}>
+              Email:
+            </Text>
             <Text style={styles.infoValueBlue}>hotro@galaxystudio.vn</Text>
             <IconButton
               icon="chevron-right"
               size={24}
-              style={styles.infoArrow}
+              color={theme.colors.primary}
             />
           </Pressable>
-          <Pressable onPress={handleCompanyInfoPress} style={styles.infoItem}>
-            <Text style={styles.infoValue}>Thông Tin Công Ty</Text>
+          <Pressable
+            onPress={handleCompanyInfoPress}
+            style={[
+              styles.infoItem,
+              { borderBottomColor: theme.colors.border },
+            ]}
+          >
+            <Text style={[styles.infoLabel, { color: theme.colors.text }]}>
+              Thông Tin Công Ty
+            </Text>
             <IconButton
               icon="chevron-right"
               size={24}
-              style={styles.infoArrow}
+              color={theme.colors.primary}
             />
           </Pressable>
-          <Pressable onPress={handleTermsPress} style={styles.infoItem}>
-            <Text style={styles.infoValue}>Điều Khoản Sử Dụng</Text>
+          <Pressable
+            onPress={handleTermsPress}
+            style={[
+              styles.infoItem,
+              { borderBottomColor: theme.colors.border },
+            ]}
+          >
+            <Text style={[styles.infoLabel, { color: theme.colors.text }]}>
+              Điều Khoản Sử Dụng
+            </Text>
             <IconButton
               icon="chevron-right"
               size={24}
-              style={styles.infoArrow}
+              color={theme.colors.primary}
             />
           </Pressable>
 
           {userInfo ? (
-            <Pressable onPress={handleLogout} style={styles.infoItem}>
-              <Text style={styles.infoValue}>Đăng xuất</Text>
+            <Pressable
+              onPress={handleLogout}
+              style={[
+                styles.infoItem,
+                { borderBottomColor: theme.colors.border },
+              ]}
+            >
+              <Text style={[styles.infoLabel, { color: theme.colors.text }]}>
+                Đăng xuất
+              </Text>
               <IconButton
                 icon="chevron-right"
                 size={24}
-                style={styles.infoArrow}
+                color={theme.colors.primary}
               />
             </Pressable>
           ) : null}
@@ -153,7 +234,6 @@ const ProfileScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
   },
   scrollView: {
     flex: 1,
@@ -163,9 +243,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 16,
-    backgroundColor: "white",
     borderBottomWidth: 1,
-    borderBottomColor: "#EEEEEE",
   },
   bottomPadding: {
     height: 80, // Adjust based on your tab bar height
@@ -280,10 +358,9 @@ const styles = StyleSheet.create({
     color: "#333333",
     flex: 1,
   },
-
   infoValueBlue: {
     fontSize: 14,
-    color: "#0066CC",
+    color: "#2196F3",
     flex: 1,
   },
   infoArrow: {
@@ -320,14 +397,6 @@ const styles = StyleSheet.create({
   buttonContent: {
     height: 45,
     width: "100%",
-  },
-  // Thêm styles mới cho interactive states
-  infoItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 12,
-    borderBottomWidth: 2,
-    borderBottomColor: "#EEEEEE",
   },
   registerButton: {
     flex: 1,

@@ -10,8 +10,8 @@ import {
 import { Button, HelperText } from "react-native-paper";
 import axios from "axios";
 import { useRoute, useNavigation } from "@react-navigation/native";
-
-const BASE_URL = "http://192.162.13.101:5000"; // **TODO: Thay YOUR_BACKEND_BASE_URL nếu cần**
+import {env} from "../../config/enviroment";
+const BASE_URL = env.API_URL;
 
 const TransactionScreen = () => {
   const route = useRoute();
