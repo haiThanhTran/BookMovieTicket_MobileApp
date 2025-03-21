@@ -29,18 +29,17 @@ const AppRouter = () => {
       }}
     >
       <Tab.Screen
-        
         name="HomeStackNavigation"
         component={HomeStackNavigation}
         options={{
-            tabBarLabel: "Trang chủ",
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name="home-minus-outline"
-                color={color}
-                size={21}
-              />
-            ),
+          tabBarLabel: "Trang chủ",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="home-minus-outline"
+              color={color}
+              size={21}
+            />
+          ),
         }}
       />
       <Tab.Screen
@@ -57,7 +56,7 @@ const AppRouter = () => {
           ),
         }}
       />
-     
+
       <Tab.Screen
         name="ProfileStackNavigation"
         component={ProfileStackNavigation}

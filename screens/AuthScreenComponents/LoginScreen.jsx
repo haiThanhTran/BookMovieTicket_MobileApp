@@ -5,7 +5,7 @@ import { Formik } from "formik";
 import { loginValidationSchema } from "../../config/ValidationSchema";
 import axios from 'react-native-axios';
 
-const API_SERVER = "http://192.162.13.101:5000/mobile";
+const API_SERVER = "http://10.33.53.160:5000/mobile";
 import { storeData } from "../../config/AsyncStorageConfig";
 import { ScrollView } from "react-native-gesture-handler";
 
